@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import { connect } from "react-redux";
 
@@ -6,45 +6,45 @@ import { getTracks } from './actions/tracks';
 import Menu from "./components/Menu/Menu";
 
 
-class App extends Component {
-    addTrack(){
-        console.log('add track clicked',this.trackInput.value);
-        this.props.onAddTrack(this.trackInput.value);
-        this.trackInput.value = '';
+const App = ({tracks,onAddTrack,onFindTrack,onGetTracks}) => {
+    let trackInput = '',
+        searchInput = '';
+
+    const addTrack = () =>{
+        console.log('add track clicked',trackInput.value);
+        onAddTrack(trackInput.value);
+        trackInput = '';
     };
 
-    findTrack(){
-        console.log('search track clicked',this.searchInput.value);
-        this.props.onFindTrack(this.searchInput.value);
-        this.searchInput.value = '';
+    const findTrack = () => {
+        console.log('search track clicked',searchInput.value);
+        onFindTrack(searchInput.value);
+        searchInput = '';
     }
 
-  render() {
-        console.log(this.props.testStore)
     return(
         <div className={'container'}>
             <Menu/>
             <noscript>You need to enable JavaScript to run this app.</noscript>
             <div>
-                <input type="text" className="track-input" ref={(input)=>{this.trackInput = input}}/>
-                <button className="add-track" onClick={this.addTrack.bind(this)}>Add track</button>
+                <input type="text" className="track-input" ref={(input)=>{trackInput = input}}/>
+                <button className="add-track" onClick={addTrack}>Add track</button>
             </div>
             <div>
-                <input type="text" className="track-input" ref={(input)=>{this.searchInput = input}}/>
-                <button className="add-track" onClick={this.findTrack.bind(this)}>Find track</button>
+                <input type="text" className="track-input" ref={(input)=>{searchInput = input}}/>
+                <button className="add-track" onClick={findTrack}>Find track</button>
             </div>
             <div>
-                <button className="get-tracks" onClick={this.props.onGetTracks}>Get track</button>
+                <button className="get-tracks" onClick={onGetTracks}>Get track</button>
             </div>
             <ul className="track-list">
-                {this.props.tracks.map((track,key)=>{
+                {tracks.map((track,key)=>{
                     return <li key={key}>{track.name}</li>
                 })}
             </ul>
         </div>
     );
-  }
-}
+};
 
 export default connect(
     state=>({
