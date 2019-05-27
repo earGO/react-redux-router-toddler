@@ -3,6 +3,7 @@ import './App.css';
 import { connect } from "react-redux";
 
 import { getTracks } from './actions/tracks';
+import Menu from "./components/Menu/Menu";
 
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
         console.log(this.props.testStore)
     return(
         <div className={'container'}>
+            <Menu/>
             <noscript>You need to enable JavaScript to run this app.</noscript>
             <div>
                 <input type="text" className="track-input" ref={(input)=>{this.trackInput = input}}/>

@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import About from './components/About/About'
 import * as serviceWorker from './serviceWorker';
 import {createStore,applyMiddleware } from "redux";
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from "redux-devtools-extension";
+import { Route,HashRouter as Router} from 'react-router-dom';
 
 import reducer from './reducers/reducers';
 
@@ -49,7 +51,10 @@ addTrackButton.addEventListener('click',()=>{
 const store = createStore(reducer,composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(<Provider store={store}>
-                    <App />
+                    <Router>
+                        <Route exact path={'/'} component={App}/>
+                        <Route path={'/about'} component={About}/>
+                    </Router>
                 </Provider>
    , document.getElementById('root'));
 
